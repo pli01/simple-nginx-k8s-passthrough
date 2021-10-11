@@ -12,7 +12,7 @@ services:
       - K8S_HOST=${K8S_HOST:?K8S_HOST}
       - K8S_PORT=${K8S_PORT:-6443}
       - PORTAINER_HOST=${PORTAINER_HOST:?PORTAINER_HOST}
-      - PORTAINER_PORT=${PORTAINER_PORT:-9000}
+      - PORTAINER_PORT=${PORTAINER_PORT:-80}
     volumes:
       - ./nginx.k8s.template:/etc/nginx/nginx.k8s.template
       - ./nginx.portainer.template:/etc/nginx/conf.d/portainer.template
