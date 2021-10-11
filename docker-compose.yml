@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+  # entrypoint https:// and http://
+  nginx:
+    image: nginx:stable
+    networks:
+      nginx-network:
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - K8S_HOST=${K8S_HOST:?K8S_HOST}
+      - K8S_PORT=${K8S_PORT:-6443}
+      - PORTAINER_HOST=${PORTAINER_HOST:?PORTAINER_HOST}
+      - PORTAINER_PORT=${PORTAINER_PORT:-9000}
+    volumes:
+      - ./nginx.k8s.template:/etc/nginx/nginx.k8s.template
+      - ./nginx.portainer.template:/etc/nginx/conf.d/portainer.template
+      - ./run.sh:/docker-entrypoint.d/run.sh
+
+networks:
+  nginx-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
